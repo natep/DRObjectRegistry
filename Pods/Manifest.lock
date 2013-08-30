@@ -1,0 +1,10 @@
+PODS:
+  - LockBlocks (0.0.1)
+
+DEPENDENCIES:
+  - LockBlocks
+
+SPEC CHECKSUMS:
+  LockBlocks: 51c98fd57fdd8ef0f1c6d6745f60980e52187aa1
+
+COCOAPODS: 0.23.0

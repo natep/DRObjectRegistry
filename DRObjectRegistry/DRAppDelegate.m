@@ -7,6 +7,7 @@
 //
 
 #import "DRAppDelegate.h"
+#import "UIApplication+DRObjectRegistry.h"
 
 @implementation DRAppDelegate
 
@@ -16,6 +17,21 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+	
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+		NSString* value = @"A test value";
+		
+		[[UIApplication sharedApplication] registerObject:value forKey:@"test"];
+		
+		NSLog(@"wrote value: %@", value);
+	});
+	
+	double delayInSeconds = 3.0;
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+		NSLog(@"read value: %@", [[UIApplication sharedApplication] registeredObjectForKey:@"test"]);
+	});
+	
     return YES;
 }
 
